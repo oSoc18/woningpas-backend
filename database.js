@@ -10,7 +10,12 @@ app.get('/listHouses', function (req, res) {
 })
 
 app.get('/isCorrectPassword', function(req, res){
-    console.log(req)
+    name = req.query.name
+    password = req.query.password
+    fs.readFile( __dirname + "/" + "houses.json", 'utf8', function (err, data) {
+        file = JSON.parse(data)
+        res.end(String(file[name].password === password))
+    });
 })
 
 var server = app.listen(8080, function () {
